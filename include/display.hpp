@@ -5,6 +5,7 @@
 #include <string>
 #include "hardware.hpp"
 
+enum Display_Attributes{REFRESH=1, SOURCE=2};
 
 class Display : public Component{
   private:
@@ -12,6 +13,7 @@ class Display : public Component{
   public:
     static unsigned int _resfreshCt;
     Display(std::string path);
+    void infos();
     void bind();
     void simulate();
 };
