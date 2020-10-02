@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
 
   stream.open(platformName);
   while(getline(stream, fileComponent)!=0){
+  while(getline(stream, fileComponent)){
 
       HardWare* hardWareTemp;
       ComponentType = fileComponent;
