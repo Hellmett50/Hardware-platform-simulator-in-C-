@@ -6,7 +6,7 @@
 #include "hardware.hpp"
 
 
-class Memory : public Component{
+class Memory : public Component, public HardWareLabeled{
   private:
     unsigned int _size;
     unsigned int _access;

@@ -6,7 +6,7 @@
 #include "hardware.hpp"
 
 
-class Bus : public Component{
+class Bus : public Component, public HardWareLabeled{
   private:
     unsigned int _width;
   public:

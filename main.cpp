@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cstddef>
+#include <exception>
 
 #include "./include/hardware.hpp"
 #include "./include/mem.hpp"
@@ -21,6 +22,12 @@ int main(int argc, char* argv[]){
   string ComponentType;
 
   stream.open(platformName);
+
+  if(!stream.is_open()){
+    cout << "Failed to open file : " << platformName << endl;
+    return EXIT_FAILURE;
+  }
+
   while(getline(stream, fileComponent)!=0){
   while(getline(stream, fileComponent)){
 
@@ -29,11 +36,11 @@ int main(int argc, char* argv[]){
 
       size_t found = ComponentType.rfind("/");
       if (found!=string::npos)
-      ComponentType.erase(0,found+1);
+        ComponentType.erase(0,found+1);
 
       found = ComponentType.find_first_of("123456789.");
       if (found!=string::npos)
-      ComponentType.erase(found,ComponentType.back());
+        ComponentType.erase(found,ComponentType.back());
 
       cout << ComponentType << endl;
 
@@ -42,17 +49,44 @@ int main(int argc, char* argv[]){
       }
 
       else if(ComponentType=="cpu"){
-        hardWareTemp = new Cpu(fileComponent);
+        try
+        {
+          Cpu* l = new Cpu(fileComponent);
+          l->simulate();
+        }
+        catch (const string msg)
+        {
+          cout << msg << endl;
+          return EXIT_FAILURE;
+        }
       }
 
       else if(ComponentType=="display"){
-        hardWareTemp = new Display(fileComponent);
+        try
+        {
+          hardWareTemp = new Display(fileComponent);
+        }
+        catch (const string msg)
+        {
+          cout << msg << endl;
+          return EXIT_FAILURE;
+        }
       }
 
       else if(ComponentType=="mem"){
         hardWareTemp = new Memory(fileComponent);
       }
+      else{
+        cout << "Failled to load the Platform..." << endl;
+        return EXIT_FAILURE;
+      }
 
+  }
+  cout << "Platform loaded !" << endl;
+  stream.close();
+  if(stream.is_open()){
+    cout << "Failed to close file : " << platformName << endl;
+    return EXIT_FAILURE;
   }
 
 
