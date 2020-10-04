@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
     return EXIT_FAILURE;
   }
 
-  while(getline(stream, fileComponent)!=0){
+  while(getline(stream, fileComponent)){
 
       HardWare* hardWareTemp;
       ComponentType = fileComponent;
@@ -51,7 +51,24 @@ int main(int argc, char* argv[]){
         try
         {
           Cpu* l = new Cpu(fileComponent);
+          cout << "\n===========READ============" << endl;
+          l->read();
           l->simulate();
+          cout << "\n===========READ============" << endl;
+          l->read();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          l->simulate();
+          cout << "\n===========READ============" << endl;
+          l->read();
         }
         catch (const string msg)
         {
@@ -89,5 +106,5 @@ int main(int argc, char* argv[]){
   }
 
 
-  return 0;
+  return EXIT_SUCCESS;
 }
