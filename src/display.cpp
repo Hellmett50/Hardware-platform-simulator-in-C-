@@ -17,20 +17,23 @@ Display::Display(string path){
     throw "Failed to open file : "+path;
   }
 
-  while(getline(stream, attribute)!=0){
+  while(!stream.eof()){
 
+    getline(stream, attribute);
     size_t found = attribute.rfind(": ");
     if (found!=string::npos)
       attribute.erase(0,found+2);
 
     switch (ct_attribute) {
       case TYPE:
+      attribute.erase(remove(attribute.begin(), attribute.end(), ' '), attribute.end());
         _type=attribute;
       break;
       case REFRESH:
         _refresh=stoi(attribute);
       break;
       case SOURCE:
+        deleteSpace(attribute);
         _source=attribute;
       break;
     }
