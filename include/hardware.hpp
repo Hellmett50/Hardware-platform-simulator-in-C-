@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <map>
+#include <queue>
 #include <iterator>
 #include <fstream>
 #include <cstddef>
@@ -37,5 +39,7 @@ class Component : public HardWare{
     void tellLabelSource();
 
 };
+
+void deleteSpace(std::string& str);
 
 #endif
