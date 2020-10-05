@@ -53,21 +53,12 @@ class Cpu : public HardWare, public HardWareLabeled{
   private:
     unsigned int _cores;
     unsigned int _freq;
-    std::string _program;
     Program _prog;
     Register _reg;
   public:
-    static unsigned int _pc;
     Cpu(std::string path);
-    void infos();
-    bool finished();
-    bool isEmpty();
     void infos() const;
-    void reset();
-    void compute();
     void simulate();
-    void read();
-};
     std::map<bool, double> read() const;
 
 };//End of class Cpu
