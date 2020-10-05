@@ -168,14 +168,14 @@ void Program::loadProgram(string path){
 
   while(!stream.eof()){
     stream >> opCode;
-    cout << opCode << endl;
+    //cout << opCode << endl;
     stream >> op1;
-    cout << op1 << endl;
+    //cout << op1 << endl;
     stream >> op2;
-    cout << op2 << endl;
+    //cout << op2 << endl;
     inst_temp.getInstruction(opCode, op1, op2);
     _inst.push_back(inst_temp);
-    cout << "resultat : " << _inst[i].compute() << endl;
+    //cout << "resultat : " << _inst[i].compute() << endl;
     i++;
   }
   inst_temp.getInstruction("NOP", 0, 0);
