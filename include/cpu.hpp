@@ -60,6 +60,7 @@ class Cpu : public HardWare, public HardWareLabeled{
     void infos() const;
     void simulate();
     std::map<bool, double> read() const;
+    std::pair<bool, double> read() const;
 
 };//End of class Cpu
 
