@@ -100,7 +100,7 @@ pair<bool, double> Cpu::read() const{
   }
   else{
     output.first = true;
-    output.second=_reg.read();
+    output.second = _reg.read();
     cout << "First available value in the register is : " << output.second << endl;
   }
 
