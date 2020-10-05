@@ -89,18 +89,19 @@ void Cpu::simulate(){
 
 }//End of Cpu::simulate()
 
-map<bool, double> Cpu::read() const{
+pair<bool, double> Cpu::read() const{
 
-  map<bool, double> output;
+  pair<bool, double> output;
 
   cout << "Reading CPU..." << endl;
 
   if(_reg.isEmpty()){
-    output[false];
+    output.first = false;
   }
   else{
-    output[true]=_reg.read();
-    cout << "First available value in the register is : " << output[true] << endl;
+    output.first = true;
+    output.second=_reg.read();
+    cout << "First available value in the register is : " << output.second << endl;
   }
 
   return output;

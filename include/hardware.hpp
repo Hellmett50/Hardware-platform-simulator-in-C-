@@ -29,7 +29,7 @@ class HardWareLabeled{
   protected:
     std::string _label;
   public:
-    std::map<bool, double> read() const;
+    std::pair<bool, double> read() const;
 
 };
 
