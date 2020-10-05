@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "hardware.hpp"
-#include "cpu.hpp"
+#include "bus.hpp"
 
 class CircBuffer{
   private:
@@ -24,13 +24,14 @@ class Memory : public Component, public HardWareLabeled{
   private:
     unsigned int _access;
     CircBuffer* _circbuffer;
+    unsigned int _accesCt;
 
   public:
-    unsigned int _accesCt;
+    void tellLabelSource() const;
     Memory(std::string path);
     void infos() const;
     void bind();
-    void simulate(Cpu cpu);
+    void simulate(Bus bus);
     std::pair<bool, double> read();
 };
 

@@ -59,3 +59,7 @@ void Bus::infos() const{
 void Bus::simulate(){
 
 }//End of Bus::simulate()
+
+void Bus::read() {
+  
+}

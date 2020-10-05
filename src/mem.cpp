@@ -56,12 +56,15 @@ void Memory::infos() const{
 
 }
 
-void Memory::simulate(Cpu cpu){
+void Memory::bind(/*Bus* bus*/) {
+  //_bus = bus;
+}
+
+void Memory::simulate(Bus bus){
 
     cout << "\nSimulating memory...\n" << endl;
-
     if (_accesCt % _access == 0) {
-      pair<bool, double> dataValue = cpu.read();
+      pair<bool, double> dataValue = bus.read();
       while(dataValue.first){
         if (_circbuffer->pushData(dataValue)) {
           cout << "CANNOT PUSH" << '\n';
