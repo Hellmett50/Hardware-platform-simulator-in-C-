@@ -11,7 +11,7 @@ class Bus : public Component, public HardWareLabeled{
   public:
     static unsigned int _readCt;
     Bus(std::string path);
-    void infos();
+    void infos() const;
     void bind();
     void simulate();
     void read();

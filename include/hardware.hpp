@@ -20,7 +20,8 @@ class HardWare{
 
   public:
     static bool binded; //pour savoir quand tout est bindé
-    void infos();
+    virtual void infos() const=0;
+    virtual void simulate()=0;
 
 };
 
@@ -28,6 +29,7 @@ class HardWareLabeled{
   protected:
     std::string _label;
   public:
+    std::pair<bool, double> read() const;
 
 };
 
@@ -36,7 +38,10 @@ class Component : public HardWare{
     std::string _source;
 
   public:
-    void tellLabelSource();
+    virtual void infos() const=0;
+    virtual void simulate()=0;
+    void tellLabelSource() const;
+    void bind();
 
 };
 

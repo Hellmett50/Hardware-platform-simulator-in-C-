@@ -27,7 +27,7 @@ Bus::Bus(string path){
       attribute.erase(0,found+2);
       attributeName.erase(found, attributeName.back());
     }
-    
+
     if (attributeName == "TYPE")
       _type=attribute;
     if (attributeName == "LABEL")
@@ -47,7 +47,7 @@ Bus::Bus(string path){
 
 }
 
-void Bus::infos(){
+void Bus::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
@@ -55,3 +55,7 @@ void Bus::infos(){
        << "SOURCE: " << _source << '\n' << endl;
 
 }
+
+void Bus::simulate(){
+
+}//End of Bus::simulate()

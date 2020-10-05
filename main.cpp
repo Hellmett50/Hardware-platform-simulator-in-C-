@@ -20,6 +20,7 @@ int main(int argc, char* argv[]){
   string platformName = argv[1];
   string fileComponent;
   string ComponentType;
+  size_t component_nb=1;
 
   stream.open(platformName);
 
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]){
 
   while(getline(stream, fileComponent)){
 
-      HardWare* hardWareTemp;
+      vector<HardWare*> hardWareTemp;
       ComponentType = fileComponent;
 
       size_t found = ComponentType.rfind("/");
@@ -44,31 +45,43 @@ int main(int argc, char* argv[]){
       cout << ComponentType << endl;
 
       if(ComponentType=="bus"){
-        hardWareTemp = new Bus(fileComponent);
+        try
+        {
+          Bus bus_temp(fileComponent);
+          hardWareTemp.resize(component_nb,&bus_temp);
+        }
+        catch(const string msg)
+        {
+          cout << msg << endl;
+          return EXIT_FAILURE;
+        }
       }
 
       else if(ComponentType=="cpu"){
         try
         {
-          Cpu* l = new Cpu(fileComponent);
+          Cpu cpu_temp(fileComponent);
+          hardWareTemp.resize(component_nb,&cpu_temp);
+
+          cout << "\n===========READ============"<< endl;
+          //hardWareTemp[4]->infos();
+          //hardWareTemp[4]->read();
+          hardWareTemp[4]->simulate();
           cout << "\n===========READ============" << endl;
-          l->read();
-          l->simulate();
+          //hardWareTemp[4]read();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
+          hardWareTemp[4]->simulate();
           cout << "\n===========READ============" << endl;
-          l->read();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          l->simulate();
-          cout << "\n===========READ============" << endl;
-          l->read();
+          //hardWareTemp[4]->read();
         }
         catch (const string msg)
         {
@@ -80,7 +93,10 @@ int main(int argc, char* argv[]){
       else if(ComponentType=="display"){
         try
         {
-          hardWareTemp = new Display(fileComponent);
+          Display disp_temp(fileComponent);
+          hardWareTemp.resize(component_nb,&disp_temp);
+          //hardWareTemp[6]->tellLabelSource();
+          hardWareTemp[6]->simulate();
         }
         catch (const string msg)
         {
@@ -90,14 +106,10 @@ int main(int argc, char* argv[]){
       }
 
       else if(ComponentType=="mem"){
-        hardWareTemp = new Memory(fileComponent);
-      }
-      else{
-        cout << "Failled to load the Platform..." << endl;
-        return EXIT_FAILURE;
         try
         {
-          hardWareTemp = new Memory(fileComponent);
+          Memory mem_temp(fileComponent);
+          hardWareTemp.resize(component_nb,&mem_temp);
         }
         catch (const string msg)
         {
@@ -105,8 +117,13 @@ int main(int argc, char* argv[]){
           return EXIT_FAILURE;
         }
       }
-
+      else{
+        cout << "Failled to load the Platform..." << endl;
+        return EXIT_FAILURE;
+      }
+      component_nb++;
   }
+
   cout << "Platform loaded !" << endl;
   stream.close();
   if(stream.is_open()){

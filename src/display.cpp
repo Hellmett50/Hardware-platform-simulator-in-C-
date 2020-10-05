@@ -46,12 +46,33 @@ Display::Display(string path){
 
   stream.close();
 
-}
+}//End of Display::Display()
 
-void Display::infos(){
+void Display::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "REFRESH: " << _refresh << '\n'
        << "SOURCE: " << _source << '\n' << endl;
 
-}
+}//End of Display::infos()
+
+void Display::tellLabelSource() const{
+  cout << "Source's Label of component DISPLAY : "+_source << endl;
+}//End of Display::tellLabelSource()
+
+void Display::simulate(/*Memory mem*/){
+
+  cout << "\nSimulating DISPLAY...\n" << endl;
+
+  for(unsigned int i=0; i<_refresh; i++){
+    /*if(){
+
+    }
+    else*/
+    cout << i << endl;
+
+  }
+
+  cout << "\nEnd of DISPLAY simulation.\n" << endl;
+
+}//End of Display::simulate()

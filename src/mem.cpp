@@ -46,7 +46,7 @@ Memory::Memory(string path) : _accesCt(0){
 
 }
 
-void Memory::infos(){
+void Memory::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
