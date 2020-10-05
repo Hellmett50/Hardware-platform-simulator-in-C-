@@ -18,6 +18,7 @@ Display::Display(string path){
   }
 
   while(getline(stream, attribute)!=0){
+  while(getline(stream, attribute)){
 
     size_t found = attribute.rfind(": ");
     if (found!=string::npos)

@@ -5,7 +5,6 @@
 #include <string>
 #include "hardware.hpp"
 
-
 class Memory : public Component, public HardWareLabeled{
   private:
     unsigned int _size;
@@ -13,6 +12,7 @@ class Memory : public Component, public HardWareLabeled{
   public:
     static unsigned int _accesCt;
     Memory(std::string path);
+    void infos();
     void bind();
     void simulate();
     void read();

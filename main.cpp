@@ -79,6 +79,15 @@ int main(int argc, char* argv[]){
       else{
         cout << "Failled to load the Platform..." << endl;
         return EXIT_FAILURE;
+        try
+        {
+          hardWareTemp = new Memory(fileComponent);
+        }
+        catch (const string msg)
+        {
+          cout << msg << endl;
+          return EXIT_FAILURE;
+        }
       }
 
   }
