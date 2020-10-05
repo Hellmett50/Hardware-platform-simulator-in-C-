@@ -6,8 +6,7 @@
 #include "hardware.hpp"
 #include "cpu.hpp"
 
-class Memory : public Component, public HardWareLabeled{
-class CircBuffer {
+class CircBuffer{
   private:
     std::pair<bool, double>* _buffer;
     unsigned int _head;
@@ -27,13 +26,10 @@ class Memory : public Component, public HardWareLabeled{
     CircBuffer* _circbuffer;
 
   public:
-    static unsigned int _accesCt;
     unsigned int _accesCt;
     Memory(std::string path);
     void infos() const;
     void bind();
-    void simulate();
-    void read();
     void simulate(Cpu cpu);
     std::pair<bool, double> read();
 };

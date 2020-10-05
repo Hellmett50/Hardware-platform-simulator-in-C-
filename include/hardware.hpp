@@ -15,7 +15,6 @@ enum Attributes{TYPE=0, LABEL=1};
 
 class HardWare{
   protected:
-    std::map<bool, double> _dataValue;
     std::string _type;
 
   public:
