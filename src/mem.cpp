@@ -9,7 +9,6 @@ Memory::Memory(string path){
   cout << "\n\n==================\n"
        << "Loading component MEMORY...\n" << endl;
 
-  int ct_attribute=0;
   ifstream stream;
   string attribute;
   string attributeName;
@@ -49,7 +48,7 @@ Memory::Memory(string path){
 
 }
 
-void Memory::infos(){
+void Memory::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'

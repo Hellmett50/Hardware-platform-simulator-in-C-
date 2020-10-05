@@ -70,7 +70,7 @@ void Cpu::infos() const{
 
 void Cpu::simulate(){
 
-  cout << "\nSimulating...\n" << endl;
+  cout << "\nSimulating CPU("+_label+")...\n" << endl;
   cout << "Computing instructions...\n\n" << endl;
 
   for(unsigned int i=0; i<_freq; i++){
@@ -85,7 +85,7 @@ void Cpu::simulate(){
   }
 
   cout << "\nEnd of computation.\n" << endl;
-  cout << "End of simulation.\n" << endl;
+  cout << "End of CPU("+_label+") simulation.\n" << endl;
 
 }//End of Cpu::simulate()
 
