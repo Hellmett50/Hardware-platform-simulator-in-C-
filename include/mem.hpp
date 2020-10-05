@@ -4,9 +4,8 @@
 #include <iostream>
 #include <string>
 #include "hardware.hpp"
-#include "cpu.hpp"
+#include "bus.hpp"
 
-class Memory : public Component, public HardWareLabeled{
 class CircBuffer {
   private:
     std::pair<bool, double>* _buffer;
@@ -25,16 +24,14 @@ class Memory : public Component, public HardWareLabeled{
   private:
     unsigned int _access;
     CircBuffer* _circbuffer;
+    unsigned int _accesCt;
 
   public:
-    static unsigned int _accesCt;
-    unsigned int _accesCt;
+    void tellLabelSource() const;
     Memory(std::string path);
     void infos() const;
     void bind();
-    void simulate();
-    void read();
-    void simulate(Cpu cpu);
+    void simulate(Bus bus);
     std::pair<bool, double> read();
 };
 
