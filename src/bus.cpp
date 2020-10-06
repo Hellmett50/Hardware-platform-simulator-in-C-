@@ -34,7 +34,7 @@ Bus::Bus(string path){
     if (attributeName == "WIDTH")
       _width=stoi(attribute);
     if (attributeName == "SOURCE")
-      _source=attribute;
+      _sourceLabel=attribute;
   }
 
 
@@ -51,7 +51,7 @@ Bus::~Bus(){
 }*/
 
 void Bus::tellLabelSource() const{
-  cout << "Source's Label of component BUS("+_label+") : "+_source << endl;
+  cout << "Source's Label of component BUS("+_label+") : "+_sourceLabel << endl;
 }//End of Bus::tellLabelSource()
 
 void Bus::infos() const{
@@ -59,7 +59,7 @@ void Bus::infos() const{
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
        << "WIDTH: " << _width << '\n'
-       << "SOURCE: " << _source << '\n' << endl;
+       << "SOURCE: " << _sourceLabel << '\n' << endl;
 
 }
 
@@ -75,7 +75,7 @@ void Bus::simulate(){
   }
   for (unsigned int i = 0; i < _width; i++) {
 
-    pair<bool, double> dataValue = _cpu->read();
+    pair<bool, double> dataValue = _source->read();
 
     if (dataValue.first) {
       _pendingValues.push(dataValue);
@@ -87,8 +87,6 @@ void Bus::simulate(){
   }
   cout << "End of Bus("+_label+") simulation.\n" << endl;
 }//End of Bus::simulate()
-
-
 
 
 pair<bool, double> Bus::read() {

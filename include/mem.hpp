@@ -20,17 +20,15 @@ class CircBuffer{
 };
 
 
-class Memory : public Component, public HardWareLabeled{
+class Memory : public Component{
   private:
     unsigned int _access;
     CircBuffer* _circbuffer;
     unsigned int _accesCt;
 
   public:
-    Bus* _bus;
     void tellLabelSource() const;
     Memory(std::string path);
-    ~Memory();
     void infos() const;
     void bind();
     void simulate();

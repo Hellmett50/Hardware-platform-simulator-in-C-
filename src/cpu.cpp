@@ -228,7 +228,7 @@ void Program::reset(){
 
 
 /*============Register============*/
-bool Register::isEmpty(){
+bool Register::isEmpty() const{
 
   cout << "Reading register...\n" << endl;
 

@@ -8,11 +8,14 @@
 
 enum Display_Attributes{REFRESH=1, SOURCE=2};
 
-class Display : public Component{
+class Display{
   private:
     unsigned int _refresh;
+    std::string _type;
+    std::string _sourceLabel;
+
   public:
-    Memory* _mem;
+    HardWare* _source;
     Display(std::string path);
     void infos() const;
     void tellLabelSource() const;

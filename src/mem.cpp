@@ -35,7 +35,7 @@ Memory::Memory(string path) {
     if (attributeName == "ACCESS")
       _access=stoi(attribute);
     if (attributeName == "SOURCE")
-      _source=attribute;
+      _sourceLabel=attribute;
   }
 
   infos();
@@ -45,10 +45,10 @@ Memory::Memory(string path) {
   stream.close();
 
 }
-
+/*
 Memory::~Memory(){
   delete _circbuffer;
-}
+}*/
 
 void Memory::infos() const{
 
@@ -56,12 +56,12 @@ void Memory::infos() const{
        << "LABEL: " << _label << '\n'
        << "SIZE: " << _circbuffer->_size << '\n'
        << "ACCESS: " << _access << '\n'
-       << "SOURCE: " << _source << '\n' << endl;
+       << "SOURCE: " << _sourceLabel << '\n' << endl;
 
 }
 
 void Memory::tellLabelSource() const{
-  cout << "Source's Label of component MEMORY("+_label+") : "+_source << endl;
+  cout << "Source's Label of component MEMORY("+_label+") : "+_sourceLabel << endl;
 }//End of Memory::tellLabelSource()
 
 void Memory::bind(/*Bus* bus*/) {
@@ -72,14 +72,14 @@ void Memory::simulate(){
 
     cout << "\nSimulating MEMORY...\n" << endl;
     if (_accesCt % _access == 0) {
-      pair<bool, double> dataValue = _bus->read();
+      pair<bool, double> dataValue = _source->read();
       while(dataValue.first){
         if (_circbuffer->pushData(dataValue)) {
           cout << "CANNOT PUSH" << '\n';
           break;
         }
         cout << "mem = " << dataValue.second << '\n';
-        dataValue = _bus->read();
+        dataValue = _source->read();
       }
   }
   _accesCt++;

@@ -42,13 +42,13 @@ class Register{
   private:
     std::queue<double> _value;
   public:
-    bool isEmpty();
+    bool isEmpty() const;
     double read();
     void write(double value);
 
 };//End of class Register
 
-class Cpu : public HardWare, public HardWareLabeled{
+class Cpu : public HardWare{
 
   private:
     unsigned int _cores;

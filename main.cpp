@@ -20,7 +20,14 @@ int main(int argc, char* argv[]){
   string platformName = argv[1];
   string fileComponent;
   string ComponentType;
-  size_t component_nb=1;
+  size_t component_nb=0;
+
+  Bus* bus_temp;
+  Cpu*  cpu_temp;
+  Memory* mem_temp;
+  vector<HardWare*> hardWareTemp;
+  vector<Component*> componentTemp;
+  Display* display;
 
   stream.open(platformName);
 
@@ -28,10 +35,9 @@ int main(int argc, char* argv[]){
     cout << "Failed to open file : " << platformName << endl;
     return EXIT_FAILURE;
   }
-/*
+
   while(getline(stream, fileComponent)){
 
-      vector<HardWare*> hardWareTemp;
       ComponentType = fileComponent;
 
       size_t found = ComponentType.rfind("/");
@@ -42,13 +48,14 @@ int main(int argc, char* argv[]){
       if (found!=string::npos)
         ComponentType.erase(found,ComponentType.back());
 
-      cout << ComponentType << endl;
+      //cout << ComponentType << endl;
 
       if(ComponentType=="bus"){
         try
         {
-          Bus bus_temp(fileComponent);
-          hardWareTemp.resize(component_nb,&bus_temp);
+          bus_temp = new Bus(fileComponent);
+          hardWareTemp.push_back(bus_temp);
+          hardWareTemp[component_nb]->infos();
         }
         catch(const string msg)
         {
@@ -60,9 +67,10 @@ int main(int argc, char* argv[]){
       else if(ComponentType=="cpu"){
         try
         {
-          Cpu cpu_temp(fileComponent);
-          hardWareTemp.resize(component_nb,&cpu_temp);
-
+          cpu_temp = new Cpu(fileComponent);
+          hardWareTemp.push_back(cpu_temp);
+          hardWareTemp[component_nb]->infos();
+/*
           cout << "\n===========READ============"<< endl;
           //hardWareTemp[4]->infos();
           //hardWareTemp[4]->read();
@@ -82,22 +90,7 @@ int main(int argc, char* argv[]){
           hardWareTemp[4]->simulate();
           cout << "\n===========READ============" << endl;
           //hardWareTemp[4]->read();
-
-        }
-        catch (const string msg)
-        {
-          cout << msg << endl;
-          return EXIT_FAILURE;
-        }
-      }
-
-      else if(ComponentType=="display"){
-        try
-        {
-          Display disp_temp(fileComponent);
-          hardWareTemp.resize(component_nb,&disp_temp);
-          //hardWareTemp[6]->tellLabelSource();
-          hardWareTemp[6]->simulate();
+*/
         }
         catch (const string msg)
         {
@@ -109,8 +102,22 @@ int main(int argc, char* argv[]){
       else if(ComponentType=="mem"){
         try
         {
-          Memory mem_temp(fileComponent);
-          hardWareTemp.resize(component_nb,&mem_temp);
+          mem_temp = new Memory(fileComponent);
+          hardWareTemp.push_back(mem_temp);
+          hardWareTemp[0]->infos();
+        }
+        catch (const string msg)
+        {
+          cout << msg << endl;
+          return EXIT_FAILURE;
+        }
+      }
+
+      else if(ComponentType=="display"){
+        try
+        {
+          display = new Display(fileComponent);
+
         }
         catch (const string msg)
         {
@@ -123,8 +130,9 @@ int main(int argc, char* argv[]){
         return EXIT_FAILURE;
       }
       component_nb++;
-  }*/
-  getline(stream, fileComponent);
+  }
+
+  /*getline(stream, fileComponent);
   Memory mem(fileComponent);
   getline(stream, fileComponent);
   Bus bus(fileComponent);
@@ -140,7 +148,7 @@ int main(int argc, char* argv[]){
     bus.simulate();
     mem.simulate();
     display.simulate();
-  }
+  }*/
 
   cout << "Platform loaded !" << endl;
   stream.close();
@@ -148,5 +156,26 @@ int main(int argc, char* argv[]){
     cout << "Failed to close file : " << platformName << endl;
     return EXIT_FAILURE;
   }
+
+  cout << "////////////////////INITIATING PLATFORM BINDING/////////////////////////////" << endl;
+
+  hardWareTemp[0]->_source = hardWareTemp[2];//mem
+  hardWareTemp[1]->_source = hardWareTemp[3];//mem
+  hardWareTemp[2]->_source = hardWareTemp[4];
+  hardWareTemp[3]->_source = hardWareTemp[5];
+  display->_source = hardWareTemp[0];
+
+
+  cout << "////////////////////INITIATING PLATFORM SIMULATION/////////////////////////////" << endl;
+
+  for (int a = 0; a < 20; a++) {
+    for (size_t j = 0; j < component_nb-1; j++) {
+      hardWareTemp[j]->simulate();
+    }
+    display->simulate();
+  }
+
+  cout << "//////////////////////THE END/////////////////////////" << endl;
+
   return EXIT_SUCCESS;
 }
