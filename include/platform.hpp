@@ -20,11 +20,12 @@ class Platform{
   public:
     std::vector<HardWare*> hardWareTemp;
     Display* display;
-    size_t component_nb;
+    int component_nb;
     Platform();
     int load(std::string platformName);
     void bind();
     void simulate();
+    std::string tellLabel() const;
 
 };
 

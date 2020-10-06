@@ -2,6 +2,19 @@
 
 using namespace std;
 
+/*============HardWare============*/
+string HardWare::tellLabel() const{
+  return _label;
+}
+
+string HardWare::tellLabelSource() const{
+  return _sourceLabel;
+}
+
+void HardWare::bind(HardWare* source) {
+  _source = source;
+}//End of HardWare::bind()
+
 /*============Functions============*/
 void deleteSpace(string& str){
 

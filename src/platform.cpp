@@ -15,7 +15,6 @@ int Platform::load(string platformName){
   Bus* bus_temp;
   Cpu*  cpu_temp;
   Memory* mem_temp;
-  vector<Component*> componentTemp;
 
   cout << "//////////////////////// LOADING PLATFORM /////////////////////////////////" << endl;
 
@@ -114,11 +113,20 @@ void Platform::bind(){
 
   cout << "////////////////////INITIATING PLATFORM BINDING/////////////////////////////" << endl;
 
-  hardWareTemp[0]->_source = hardWareTemp[2];//mem
-  hardWareTemp[1]->_source = hardWareTemp[3];//mem
-  hardWareTemp[2]->_source = hardWareTemp[4];
-  hardWareTemp[3]->_source = hardWareTemp[5];
-  display->_source = hardWareTemp[0];
+  for(int component_id=0; component_id<component_nb-1; component_id++)
+  {
+    for(int source_id = 0; source_id < component_nb-1; source_id++)
+    {
+      if (hardWareTemp[component_id]->tellLabelSource() == hardWareTemp[source_id]->tellLabel())
+      {
+        hardWareTemp[component_id]->bind(hardWareTemp[source_id]);
+        break;
+      }
+    }
+    if(display->tellLabelSource() == hardWareTemp[component_id]->tellLabel()){
+      display->bind(hardWareTemp[component_id]);
+    }
+  }
 
 }//End of Platform::bind()
 
@@ -126,8 +134,8 @@ void Platform::simulate(){
 
   cout << "////////////////////INITIATING PLATFORM SIMULATION/////////////////////////////" << endl;
 
-  for (int a = 0; a < 20; a++) {
-    for (size_t j = 0; j < component_nb-1; j++) {
+  for (int a = 0; a < 10; a++) {
+    for (int j = 0; j < component_nb-1; j++) {
       hardWareTemp[j]->simulate();
     }
     display->simulate();

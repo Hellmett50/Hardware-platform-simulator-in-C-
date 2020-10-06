@@ -18,6 +18,8 @@ Cpu::Cpu(string path){
   if(!stream.is_open())
     throw "Failed to open file : "+path;
 
+  _sourceLabel="";
+
   while(!stream.eof()){
 
     getline(stream, attribute);
@@ -88,6 +90,11 @@ void Cpu::simulate(){
   cout << "End of CPU("+_label+") simulation.\n" << endl;
 
 }//End of Cpu::simulate()
+
+string Cpu::tellLabelSource(){
+  cout << "No source for CPU" << endl;
+  return "";
+}//End of Cpu::tellLabel()
 
 pair<bool, double> Cpu::read(){
 

@@ -20,14 +20,14 @@ class CircBuffer{
 };
 
 
-class Memory : public Component{
+class Memory : public HardWare{
   private:
     unsigned int _access;
     CircBuffer* _circbuffer;
     unsigned int _accesCt;
 
   public:
-    void tellLabelSource() const;
+    //virtual std::string tellLabelSource() const;
     Memory(std::string path);
     void infos() const;
     void bind();
