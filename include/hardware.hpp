@@ -20,26 +20,16 @@ class HardWare{
 
   public:
     HardWare* _source;
+    std::string _sourceLabel;
     static bool binded; //pour savoir quand tout est bindé
     virtual void infos() const=0;
     virtual void simulate()=0;
     virtual std::pair<bool, double> read()=0;
+    std::string tellLabel() const;
+    virtual std::string tellLabelSource() const;
+    void bind(HardWare* source);
 
 };
-
-class Component : public HardWare{
-  protected:
-    std::string _sourceLabel;
-
-  public:
-    virtual void infos() const=0;
-    virtual void simulate()=0;
-    virtual std::pair<bool, double> read()=0;
-    virtual void tellLabelSource() const=0;
-    //void bind();
-
-};
-
 
 void deleteSpace(std::string& str);
 

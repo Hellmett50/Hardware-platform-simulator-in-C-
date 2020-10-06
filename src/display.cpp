@@ -56,8 +56,8 @@ void Display::infos() const{
 
 }//End of Display::infos()
 
-void Display::tellLabelSource() const{
-  cout << "Source's Label of component DISPLAY : "+_sourceLabel<< endl;
+string Display::tellLabelSource() const{
+  return _sourceLabel;
 }//End of Display::tellLabelSource()
 
 void Display::simulate(){
@@ -79,3 +79,7 @@ void Display::simulate(){
   cout << "End of DISPLAY simulation.\n" << endl;
 
 }//End of Display::simulate()
+
+void Display::bind(HardWare* source){
+  _source=source;
+}//End of Display::bind()

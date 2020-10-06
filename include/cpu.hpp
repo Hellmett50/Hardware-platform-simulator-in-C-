@@ -55,6 +55,8 @@ class Cpu : public HardWare{
     unsigned int _freq;
     Program _prog;
     Register _reg;
+    std::string tellLabelSource();
+
   public:
     Cpu(std::string path);
     void infos() const;

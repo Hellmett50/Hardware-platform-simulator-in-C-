@@ -59,28 +59,26 @@ void Memory::infos() const{
        << "SOURCE: " << _sourceLabel << '\n' << endl;
 
 }
-
-void Memory::tellLabelSource() const{
-  cout << "Source's Label of component MEMORY("+_label+") : "+_sourceLabel << endl;
+/*
+string Memory::tellLabelSource() const{
+  return _sourceLabel;
 }//End of Memory::tellLabelSource()
-
-void Memory::bind(/*Bus* bus*/) {
-  //_bus = bus;
-}
+*/
 
 void Memory::simulate(){
 
-    cout << "\nSimulating MEMORY...\n" << endl;
-    if (_accesCt % _access == 0) {
-      pair<bool, double> dataValue = _source->read();
-      while(dataValue.first){
-        if (_circbuffer->pushData(dataValue)) {
-          cout << "CANNOT PUSH" << '\n';
-          break;
-        }
-        cout << "mem = " << dataValue.second << '\n';
-        dataValue = _source->read();
+  cout << "\nSimulating MEMORY...\n" << endl;
+  cout << "\n" << _accesCt << " % " << _access << " == " << _accesCt % _access << "\n" << endl;
+  if (_accesCt % _access == 0) {
+    pair<bool, double> dataValue = _source->read();
+    while(dataValue.first){
+      if (_circbuffer->pushData(dataValue)) {
+        cout << "CANNOT PUSH" << '\n';
+        break;
       }
+      cout << "mem = " << dataValue.second << '\n';
+      dataValue = _source->read();
+    }
   }
   _accesCt++;
   cout << "End of Memory simulation.\n" << endl;

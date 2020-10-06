@@ -49,11 +49,11 @@ Bus::Bus(string path){
 Bus::~Bus(){
   delete _pendingValues[_width];
 }*/
-
-void Bus::tellLabelSource() const{
-  cout << "Source's Label of component BUS("+_label+") : "+_sourceLabel << endl;
+/*
+string Bus::tellLabelSource() const{
+  return _sourceLabel;
 }//End of Bus::tellLabelSource()
-
+*/
 void Bus::infos() const{
 
   cout << "TYPE: " << _type << '\n'
@@ -66,11 +66,11 @@ void Bus::infos() const{
 void Bus::simulate(){
 
   cout << "\nSimulating BUS("+_label+")...\n" << endl;
-
   while (!_pendingValues.empty()) {
-
+    cout << "push pending->ready" << endl;
     _readyValues.push(_pendingValues.front());
     _pendingValues.pop();
+    cout << _readyValues.empty() << endl;  
 
   }
   for (unsigned int i = 0; i < _width; i++) {
@@ -79,7 +79,6 @@ void Bus::simulate(){
 
     if (dataValue.first) {
       _pendingValues.push(dataValue);
-      cout << "_pendingValues : " << (_pendingValues.front()).second << endl;
     }
     else
       break;
@@ -93,7 +92,7 @@ pair<bool, double> Bus::read() {
 
   pair<bool, double> output;
   cout << "Reading BUS..." << endl;
-
+  cout << _readyValues.empty() << endl;
   if (_readyValues.empty()) {
     output.first = false;
     cout << "BUS IS EMPTY: " << output.first << endl;

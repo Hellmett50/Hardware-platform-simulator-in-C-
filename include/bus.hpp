@@ -5,7 +5,7 @@
 #include <string>
 #include "hardware.hpp"
 
-class Bus : public Component{
+class Bus : public HardWare{
   private:
     unsigned int _width;
     std::queue<std::pair<bool, double>> _pendingValues;
@@ -17,7 +17,7 @@ class Bus : public Component{
     void bind();
     void simulate();
     std::pair<bool, double> read();
-    void tellLabelSource() const;
+    //virtual std::string tellLabelSource() const;
 };
 
 #endif

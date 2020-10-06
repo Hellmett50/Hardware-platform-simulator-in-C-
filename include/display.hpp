@@ -18,8 +18,9 @@ class Display{
     HardWare* _source;
     Display(std::string path);
     void infos() const;
-    void tellLabelSource() const;
-    void bind();
+    std::string tellLabelSource() const;
+    std::string tellLabel() const;
+    void bind(HardWare* source);
     void simulate();
 };
 
