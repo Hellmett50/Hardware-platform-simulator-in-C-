@@ -50,6 +50,10 @@ Bus::~Bus(){
   delete _pendingValues[_width];
 }*/
 
+void Bus::tellLabelSource() const{
+  cout << "Source's Label of component BUS("+_label+") : "+_source << endl;
+}//End of Bus::tellLabelSource()
+
 void Bus::infos() const{
 
   cout << "TYPE: " << _type << '\n'
@@ -65,24 +69,21 @@ void Bus::simulate(){
 
   while (!_pendingValues.empty()) {
 
-    cout << "_readyValues before : " << (_readyValues.front()).second << endl;
     _readyValues.push(_pendingValues.front());
-    cout << "after push : " << (_readyValues.front()).second << endl;
     _pendingValues.pop();
-    cout << "after pop : " << (_readyValues.front()).second << endl;
 
   }
   for (unsigned int i = 0; i < _width; i++) {
 
-
     pair<bool, double> dataValue = _cpu->read();
+
     if (dataValue.first) {
       _pendingValues.push(dataValue);
       cout << "_pendingValues : " << (_pendingValues.front()).second << endl;
     }
-    else{
+    else
       break;
-    }
+
   }
   cout << "End of Bus("+_label+") simulation.\n" << endl;
 }//End of Bus::simulate()

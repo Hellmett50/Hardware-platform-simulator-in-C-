@@ -14,6 +14,7 @@ class Bus : public Component, public HardWareLabeled{
   public:
     Cpu* _cpu;
     static unsigned int _readCt;
+    void tellLabelSource() const;
     Bus(std::string path);
     void infos() const;
     void bind();

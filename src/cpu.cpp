@@ -89,7 +89,7 @@ void Cpu::simulate(){
 
 }//End of Cpu::simulate()
 
-pair<bool, double> Cpu::read() const{
+pair<bool, double> Cpu::read(){
 
   pair<bool, double> output;
 
@@ -228,7 +228,7 @@ void Program::reset(){
 
 
 /*============Register============*/
-bool Register::isEmpty() const{
+bool Register::isEmpty(){
 
   cout << "Reading register...\n" << endl;
 
@@ -243,9 +243,10 @@ bool Register::isEmpty() const{
 
 }//End of Register::isEmpty()
 
-double Register::read() const{
-
-  return _value.front();//pas .front() ?? et quid du .pop() ??
+double Register::read(){
+  double output = _value.front();
+  _value.pop();
+  return output;
 
 }//End of Register::read()
 

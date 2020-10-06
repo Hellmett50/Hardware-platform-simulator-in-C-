@@ -12,11 +12,12 @@ class Display : public Component{
   private:
     unsigned int _refresh;
   public:
+    Memory* _mem;
     Display(std::string path);
     void infos() const;
     void tellLabelSource() const;
     void bind();
-    void simulate(/*Memory mem*/);
+    void simulate();
 };
 
 #endif

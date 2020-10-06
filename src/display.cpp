@@ -60,19 +60,22 @@ void Display::tellLabelSource() const{
   cout << "Source's Label of component DISPLAY : "+_source << endl;
 }//End of Display::tellLabelSource()
 
-void Display::simulate(/*Memory mem*/){
+void Display::simulate(){
+
+  pair<bool, double> dataValue;
 
   cout << "\nSimulating DISPLAY...\n" << endl;
 
-  for(unsigned int i=0; i<_refresh; i++){
-    /*if(){
 
+  for(unsigned int i=0; i< _refresh; i++){
+    dataValue = _mem->read();
+    if(!dataValue.first){
+      cout << "Invalid DataValue - Cannot read it..." << endl;
+      break;
     }
-    else*/
-    cout << i << endl;
-
+    cout << "Value : " << dataValue.second << endl;
   }
 
-  cout << "\nEnd of DISPLAY simulation.\n" << endl;
+  cout << "End of DISPLAY simulation.\n" << endl;
 
 }//End of Display::simulate()

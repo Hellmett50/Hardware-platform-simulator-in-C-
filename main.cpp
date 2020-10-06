@@ -134,10 +134,12 @@ int main(int argc, char* argv[]){
   Display display(fileComponent);
   mem._bus = &bus;
   bus._cpu = &cpu;
-  for (int a = 0; a < 10; a++) {
+  display._mem = &mem;
+  for (int a = 0; a < 50; a++) {
     cpu.simulate();
     bus.simulate();
     mem.simulate();
+    display.simulate();
   }
 
   cout << "Platform loaded !" << endl;

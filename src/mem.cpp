@@ -60,6 +60,10 @@ void Memory::infos() const{
 
 }
 
+void Memory::tellLabelSource() const{
+  cout << "Source's Label of component MEMORY("+_label+") : "+_source << endl;
+}//End of Memory::tellLabelSource()
+
 void Memory::bind(/*Bus* bus*/) {
   //_bus = bus;
 }
@@ -72,19 +76,21 @@ void Memory::simulate(){
       while(dataValue.first){
         if (_circbuffer->pushData(dataValue)) {
           cout << "CANNOT PUSH" << '\n';
+          break;
         }
         cout << "mem = " << dataValue.second << '\n';
         dataValue = _bus->read();
       }
-      _accesCt++;
-    cout << "End of Memory simulation.\n" << endl;
   }
+  _accesCt++;
+  cout << "End of Memory simulation.\n" << endl;
 }
 
 pair<bool, double> Memory::read() {
   pair<bool, double> output;
   if(_circbuffer->popData(output)){
     cout << "CANNOT POP" << '\n';
+    output.first = false;
   }
   return output;
 }
