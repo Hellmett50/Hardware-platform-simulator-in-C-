@@ -245,7 +245,7 @@ bool Register::isEmpty() const{
 
 double Register::read() const{
 
-  return _value.back();
+  return _value.front();//pas .front() ?? et quid du .pop() ??
 
 }//End of Register::read()
 

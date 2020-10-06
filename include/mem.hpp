@@ -27,11 +27,13 @@ class Memory : public Component, public HardWareLabeled{
     unsigned int _accesCt;
 
   public:
+    Bus* _bus;
     void tellLabelSource() const;
     Memory(std::string path);
+    ~Memory();
     void infos() const;
     void bind();
-    void simulate(Bus bus);
+    void simulate();
     std::pair<bool, double> read();
 };
 

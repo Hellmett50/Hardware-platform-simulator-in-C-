@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
     cout << "Failed to open file : " << platformName << endl;
     return EXIT_FAILURE;
   }
-
+/*
   while(getline(stream, fileComponent)){
 
       vector<HardWare*> hardWareTemp;
@@ -82,6 +82,7 @@ int main(int argc, char* argv[]){
           hardWareTemp[4]->simulate();
           cout << "\n===========READ============" << endl;
           //hardWareTemp[4]->read();
+
         }
         catch (const string msg)
         {
@@ -122,6 +123,21 @@ int main(int argc, char* argv[]){
         return EXIT_FAILURE;
       }
       component_nb++;
+  }*/
+  getline(stream, fileComponent);
+  Memory mem(fileComponent);
+  getline(stream, fileComponent);
+  Bus bus(fileComponent);
+  getline(stream, fileComponent);
+  Cpu cpu(fileComponent);
+  getline(stream, fileComponent);
+  Display display(fileComponent);
+  mem._bus = &bus;
+  bus._cpu = &cpu;
+  for (int a = 0; a < 10; a++) {
+    cpu.simulate();
+    bus.simulate();
+    mem.simulate();
   }
 
   cout << "Platform loaded !" << endl;

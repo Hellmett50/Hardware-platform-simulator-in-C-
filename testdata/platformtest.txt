@@ -1,0 +1,4 @@
+testdata/mem2.txt
+testdata/bus2.txt
+testdata/cpu2.txt
+testdata/display.txt
