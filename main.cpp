@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
 
   Platform platform;
 
-  if( platform.load(argv[1]) )
+  if( platform.load( argv[1]) )
     return EXIT_FAILURE;
 
   platform.bind();

@@ -24,6 +24,7 @@ class HardWare{
     virtual void infos() const=0;
     virtual void simulate()=0;
     virtual std::pair<bool, double> read()=0;
+    
 
 };
 

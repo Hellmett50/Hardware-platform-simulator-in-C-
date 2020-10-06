@@ -26,7 +26,6 @@ class Platform{
     void bind();
     void simulate();
 
-
 };
 
 #endif
