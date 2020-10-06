@@ -43,12 +43,12 @@ class Register{
     std::queue<double> _value;
   public:
     bool isEmpty() const;
-    double read() const;
+    double read();
     void write(double value);
 
 };//End of class Register
 
-class Cpu : public HardWare, public HardWareLabeled{
+class Cpu : public HardWare{
 
   private:
     unsigned int _cores;
@@ -59,7 +59,7 @@ class Cpu : public HardWare, public HardWareLabeled{
     Cpu(std::string path);
     void infos() const;
     void simulate();
-    std::pair<bool, double> read() const;
+    std::pair<bool, double> read();
 
 };//End of class Cpu
 

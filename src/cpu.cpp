@@ -89,7 +89,7 @@ void Cpu::simulate(){
 
 }//End of Cpu::simulate()
 
-pair<bool, double> Cpu::read() const{
+pair<bool, double> Cpu::read(){
 
   pair<bool, double> output;
 
@@ -243,9 +243,10 @@ bool Register::isEmpty() const{
 
 }//End of Register::isEmpty()
 
-double Register::read() const{
-
-  return _value.back();
+double Register::read(){
+  double output = _value.front();
+  _value.pop();
+  return output;
 
 }//End of Register::read()
 

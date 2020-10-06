@@ -4,7 +4,6 @@ using namespace std;
 
 Bus::Bus(string path){
 
-  cout << "Je suis un bus !!" << '\n';
   cout << path << endl;
   cout << "\n\n==================\n"
        << "Loading component BUS...\n" << endl;
@@ -35,7 +34,7 @@ Bus::Bus(string path){
     if (attributeName == "WIDTH")
       _width=stoi(attribute);
     if (attributeName == "SOURCE")
-      _source=attribute;
+      _sourceLabel=attribute;
   }
 
 
@@ -46,20 +45,64 @@ Bus::Bus(string path){
   stream.close();
 
 }
+/*
+Bus::~Bus(){
+  delete _pendingValues[_width];
+}*/
+
+void Bus::tellLabelSource() const{
+  cout << "Source's Label of component BUS("+_label+") : "+_sourceLabel << endl;
+}//End of Bus::tellLabelSource()
 
 void Bus::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
        << "WIDTH: " << _width << '\n'
-       << "SOURCE: " << _source << '\n' << endl;
+       << "SOURCE: " << _sourceLabel << '\n' << endl;
 
 }
 
 void Bus::simulate(){
 
+  cout << "\nSimulating BUS("+_label+")...\n" << endl;
+
+  while (!_pendingValues.empty()) {
+
+    _readyValues.push(_pendingValues.front());
+    _pendingValues.pop();
+
+  }
+  for (unsigned int i = 0; i < _width; i++) {
+
+    pair<bool, double> dataValue = _source->read();
+
+    if (dataValue.first) {
+      _pendingValues.push(dataValue);
+      cout << "_pendingValues : " << (_pendingValues.front()).second << endl;
+    }
+    else
+      break;
+
+  }
+  cout << "End of Bus("+_label+") simulation.\n" << endl;
 }//End of Bus::simulate()
 
-void Bus::read() {
-  
-}
+
+pair<bool, double> Bus::read() {
+
+  pair<bool, double> output;
+  cout << "Reading BUS..." << endl;
+
+  if (_readyValues.empty()) {
+    output.first = false;
+    cout << "BUS IS EMPTY: " << output.first << endl;
+    return output;
+  }
+  output = _readyValues.front();
+  _readyValues.pop();
+
+  cout << "First available value in the bus is : " << output.second << endl;
+  return output;
+
+}//End of Bus:read()

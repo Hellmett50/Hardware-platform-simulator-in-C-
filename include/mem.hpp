@@ -20,7 +20,7 @@ class CircBuffer{
 };
 
 
-class Memory : public Component, public HardWareLabeled{
+class Memory : public Component{
   private:
     unsigned int _access;
     CircBuffer* _circbuffer;
@@ -31,7 +31,7 @@ class Memory : public Component, public HardWareLabeled{
     Memory(std::string path);
     void infos() const;
     void bind();
-    void simulate(Bus bus);
+    void simulate();
     std::pair<bool, double> read();
 };
 

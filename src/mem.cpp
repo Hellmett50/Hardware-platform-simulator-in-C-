@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Memory::Memory(string path) : _accesCt(0){
+Memory::Memory(string path) {
 
   cout << "\n\n==================\n"
        << "Loading component MEMORY...\n" << endl;
@@ -10,7 +10,7 @@ Memory::Memory(string path) : _accesCt(0){
   ifstream stream;
   string attribute;
   string attributeName;
-
+  _accesCt = 0;
   stream.open(path);
 
   if(!stream.is_open()){
@@ -35,7 +35,7 @@ Memory::Memory(string path) : _accesCt(0){
     if (attributeName == "ACCESS")
       _access=stoi(attribute);
     if (attributeName == "SOURCE")
-      _source=attribute;
+      _sourceLabel=attribute;
   }
 
   infos();
@@ -45,6 +45,10 @@ Memory::Memory(string path) : _accesCt(0){
   stream.close();
 
 }
+/*
+Memory::~Memory(){
+  delete _circbuffer;
+}*/
 
 void Memory::infos() const{
 
@@ -52,33 +56,41 @@ void Memory::infos() const{
        << "LABEL: " << _label << '\n'
        << "SIZE: " << _circbuffer->_size << '\n'
        << "ACCESS: " << _access << '\n'
-       << "SOURCE: " << _source << '\n' << endl;
+       << "SOURCE: " << _sourceLabel << '\n' << endl;
 
 }
+
+void Memory::tellLabelSource() const{
+  cout << "Source's Label of component MEMORY("+_label+") : "+_sourceLabel << endl;
+}//End of Memory::tellLabelSource()
 
 void Memory::bind(/*Bus* bus*/) {
   //_bus = bus;
 }
 
-void Memory::simulate(Bus bus){
+void Memory::simulate(){
 
-    cout << "\nSimulating memory...\n" << endl;
+    cout << "\nSimulating MEMORY...\n" << endl;
     if (_accesCt % _access == 0) {
-      pair<bool, double> dataValue = bus.read();
+      pair<bool, double> dataValue = _source->read();
       while(dataValue.first){
         if (_circbuffer->pushData(dataValue)) {
           cout << "CANNOT PUSH" << '\n';
+          break;
         }
+        cout << "mem = " << dataValue.second << '\n';
+        dataValue = _source->read();
       }
-      _accesCt++;
-    cout << "End of memory simulation.\n" << endl;
   }
+  _accesCt++;
+  cout << "End of Memory simulation.\n" << endl;
 }
 
 pair<bool, double> Memory::read() {
   pair<bool, double> output;
   if(_circbuffer->popData(output)){
     cout << "CANNOT POP" << '\n';
+    output.first = false;
   }
   return output;
 }

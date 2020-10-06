@@ -34,7 +34,7 @@ Display::Display(string path){
       break;
       case SOURCE:
         deleteSpace(attribute);
-        _source=attribute;
+        _sourceLabel=attribute;
       break;
     }
     ct_attribute++;
@@ -52,27 +52,30 @@ void Display::infos() const{
 
   cout << "TYPE: " << _type << '\n'
        << "REFRESH: " << _refresh << '\n'
-       << "SOURCE: " << _source << '\n' << endl;
+       << "SOURCE: " << _sourceLabel<< '\n' << endl;
 
 }//End of Display::infos()
 
 void Display::tellLabelSource() const{
-  cout << "Source's Label of component DISPLAY : "+_source << endl;
+  cout << "Source's Label of component DISPLAY : "+_sourceLabel<< endl;
 }//End of Display::tellLabelSource()
 
-void Display::simulate(/*Memory mem*/){
+void Display::simulate(){
+
+  pair<bool, double> dataValue;
 
   cout << "\nSimulating DISPLAY...\n" << endl;
 
-  for(unsigned int i=0; i<_refresh; i++){
-    /*if(){
 
+  for(unsigned int i=0; i< _refresh; i++){
+    dataValue = _source->read();
+    if(!dataValue.first){
+      cout << "Invalid DataValue - Cannot read it..." << endl;
+      break;
     }
-    else*/
-    cout << i << endl;
-
+    cout << "Value : " << dataValue.second << endl;
   }
 
-  cout << "\nEnd of DISPLAY simulation.\n" << endl;
+  cout << "End of DISPLAY simulation.\n" << endl;
 
 }//End of Display::simulate()
