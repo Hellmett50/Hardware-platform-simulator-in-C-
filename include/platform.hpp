@@ -24,7 +24,7 @@ class Platform{
     Platform();
     int load(std::string platformName);
     void bind();
-    void simulate();
+    int simulate(int imax);
     std::string tellLabel() const;
 
 };

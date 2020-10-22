@@ -25,6 +25,8 @@ Memory::Memory(string path) {
       attribute.erase(0,found+2);
       attributeName.erase(found, attributeName.back());
     }
+    deleteSpace(attributeName);
+    deleteSpace(attribute);
 
     if (attributeName == "TYPE")
       _type=attribute;
@@ -36,6 +38,19 @@ Memory::Memory(string path) {
       _access=stoi(attribute);
     if (attributeName == "SOURCE")
       _sourceLabel=attribute;
+    if (attributeName == "INIT"){
+      vector<char> char_array(attribute.begin(), attribute.end());
+      pair<bool, double> init;
+      init.first = true;
+      char_array.push_back(0);
+      char* tok = strtok(&char_array[0], " ");
+      while (tok != NULL) {
+        cout << tok << '\n';
+        init.second = atof(tok);
+        _circbuffer->pushData(init);
+        tok = strtok(NULL, " ");
+      }
+    }
   }
 
   infos();
@@ -68,7 +83,7 @@ string Memory::tellLabelSource() const{
 void Memory::simulate(){
 
   cout << "\nSimulating MEMORY...\n" << endl;
-  cout << "\n" << _accesCt << " % " << _access << " == " << _accesCt % _access << "\n" << endl;
+  //cout << "\n" << _accesCt << " % " << _access << " == " << _accesCt % _access << "\n" << endl;
   if (_accesCt % _access == 0) {
     pair<bool, double> dataValue = _source->read();
     while(dataValue.first){

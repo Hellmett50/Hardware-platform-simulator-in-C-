@@ -1,12 +1,12 @@
 /*
 
-██████╗ ██╗      █████╗ ████████╗███████╗ ██████╗ ██████╗ ███╗   ███╗    ███████╗██╗███╗   ███╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ 
+██████╗ ██╗      █████╗ ████████╗███████╗ ██████╗ ██████╗ ███╗   ███╗    ███████╗██╗███╗   ███╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗
 ██╔══██╗██║     ██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██╔══██╗████╗ ████║    ██╔════╝██║████╗ ████║██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗
 ██████╔╝██║     ███████║   ██║   █████╗  ██║   ██║██████╔╝██╔████╔██║    ███████╗██║██╔████╔██║██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝
 ██╔═══╝ ██║     ██╔══██║   ██║   ██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║    ╚════██║██║██║╚██╔╝██║██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗
 ██║     ███████╗██║  ██║   ██║   ██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║    ███████║██║██║ ╚═╝ ██║╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
 ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝    ╚══════╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
-                                                                                                                                                  
+
 */
 
 #include <iostream>
@@ -27,7 +27,7 @@ using namespace std;
 string getFileContents (ifstream& File)
 {
     string Lines = "";        //All lines
-    
+
     if (File)                      //Check if everything is good
     {
 	while (File.good ())
@@ -35,7 +35,7 @@ string getFileContents (ifstream& File)
 	    string TempLine;                  //Temp line
 	    getline (File , TempLine);        //Get temp line
 	    TempLine += "\n";                      //Add newline character
-	    
+
 	    Lines += TempLine;                     //Add newline
 	}
 	return Lines;
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
 		ifstream Reader ("Logo.txt");             //Open file
 
     string Art = getFileContents (Reader);       //Get file
-    
+
     cout << Art << endl;               //Print it to the screen
 
     Reader.close ();                           //Close file
@@ -61,28 +61,35 @@ int main(int argc, char* argv[]){
 
   Platform platform;
 
-  if( argc<2 )
+  if( argc<3 ){
+    cout << "ERROR : too few arguments" << endl;
     return EXIT_FAILURE;
-  
-  if(  platform.load( argv[1] ) == EXIT_FAILURE)
+  }
+
+  if(  platform.load( argv[1] ) == EXIT_FAILURE) {
+    cout << "ERROR : no file or wrong file specified" << endl;
     return EXIT_FAILURE;
+  }
 
   platform.bind();
 
-  platform.simulate();
+  if(  platform.simulate( stoi(argv[2]) ) == EXIT_FAILURE){
+    cout << "ERROR : no simulating cycle specified" << endl;
+    return EXIT_FAILURE;
+  }
 
 	/* ---------Logo---------*/
 
 		Reader.open("end.txt");             //Open file
 
     Art = getFileContents (Reader);       //Get file
-    
+
     cout << Art << endl;               //Print it to the screen
 
     Reader.close ();                           //Close file
 
 	/*--------END Logo-------*/
-	
+
   cout << "//////////////////////THE END/////////////////////////" << endl;
 
   return EXIT_SUCCESS;

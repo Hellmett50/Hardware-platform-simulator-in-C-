@@ -26,16 +26,18 @@ int Platform::load(string platformName){
   }
 
   while(getline(stream, fileComponent)){
-
+      deleteSpace(fileComponent);
       ComponentType = fileComponent;
-
+      std::cout << "ComponentType: " << ComponentType << '\n';
       size_t found = ComponentType.rfind("/");
       if (found!=string::npos)
         ComponentType.erase(0,found+1);
-
+      std::cout << "ComponentType: " << ComponentType << '\n';
       found = ComponentType.find_first_of("123456789.");
       if (found!=string::npos)
         ComponentType.erase(found,ComponentType.back());
+
+      std::cout << "ComponentType: " << ComponentType << '\n';
 
       if(ComponentType=="bus"){
         try
@@ -96,6 +98,7 @@ int Platform::load(string platformName){
         return EXIT_FAILURE;
       }
       component_nb++;
+      std::cout << "ComponentType2: " << ComponentType << '\n' << '\n';
   }
 
   cout << "Platform loaded !" << endl;
@@ -130,15 +133,20 @@ void Platform::bind(){
 
 }//End of Platform::bind()
 
-void Platform::simulate(){
+int Platform::simulate( int imax ){
 
+  if( imax < 0 ){
+    cout << "ERROR : wrong cycle number" << endl;
+    return EXIT_FAILURE;
+  }
   cout << "////////////////////INITIATING PLATFORM SIMULATION/////////////////////////////" << endl;
 
-  for (int a = 0; a < 10; a++) {
+  for (int i = 0; i < imax; i++) {
     for (int j = 0; j < component_nb-1; j++) {
       hardWareTemp[j]->simulate();
     }
     display->simulate();
   }
+  return EXIT_SUCCESS;
 
 }//End of Platform::simulate()
