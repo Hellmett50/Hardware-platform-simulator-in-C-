@@ -67,10 +67,9 @@ void Bus::simulate(){
 
   cout << "\nSimulating BUS("+_label+")...\n" << endl;
   while (!_pendingValues.empty()) {
-    cout << "push pending->ready" << endl;
+    cout << "pending->ready" << endl;
     _readyValues.push(_pendingValues.front());
     _pendingValues.pop();
-    cout << _readyValues.empty() << endl;  
 
   }
   for (unsigned int i = 0; i < _width; i++) {
@@ -91,17 +90,16 @@ void Bus::simulate(){
 pair<bool, double> Bus::read() {
 
   pair<bool, double> output;
-  cout << "Reading BUS..." << endl;
-  cout << _readyValues.empty() << endl;
+  cout << "Reading "+_label+"..." << endl;
   if (_readyValues.empty()) {
     output.first = false;
-    cout << "BUS IS EMPTY: " << output.first << endl;
+    cout << _label+" IS EMPTY: " << output.first << endl;
     return output;
   }
   output = _readyValues.front();
   _readyValues.pop();
 
-  cout << "First available value in the bus is : " << output.second << endl;
+  cout << "First available value in "+_label+" is : " << output.second << endl;
   return output;
 
 }//End of Bus:read()

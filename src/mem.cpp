@@ -45,11 +45,12 @@ Memory::Memory(string path) {
       char_array.push_back(0);
       char* tok = strtok(&char_array[0], " ");
       while (tok != NULL) {
-        cout << tok << '\n';
         init.second = atof(tok);
         _circbuffer->pushData(init);
         tok = strtok(NULL, " ");
       }
+      init.first = false;
+      _circbuffer->pushData(init);
     }
   }
 
@@ -82,9 +83,9 @@ string Memory::tellLabelSource() const{
 
 void Memory::simulate(){
 
-  cout << "\nSimulating MEMORY...\n" << endl;
   //cout << "\n" << _accesCt << " % " << _access << " == " << _accesCt % _access << "\n" << endl;
-  if (_accesCt % _access == 0) {
+  if (_accesCt % _access == 0 && _type == "RWM") {
+    cout << "\nSimulating "+_type+"("+_label+")...\n" << endl;
     pair<bool, double> dataValue = _source->read();
     while(dataValue.first){
       if (_circbuffer->pushData(dataValue)) {
@@ -94,17 +95,22 @@ void Memory::simulate(){
       cout << "mem = " << dataValue.second << '\n';
       dataValue = _source->read();
     }
+    cout << "End of "+_type+"("+_label+").\n" << endl;
   }
   _accesCt++;
-  cout << "End of Memory simulation.\n" << endl;
 }
 
 pair<bool, double> Memory::read() {
+  cout << "Reading "+_label+"..." << endl;
   pair<bool, double> output;
   if(_circbuffer->popData(output)){
     cout << "CANNOT POP" << '\n';
     output.first = false;
   }
+  if (_type == "ROM") {
+    _circbuffer->pushData(output);
+  }
+  cout << "First available value in "+_label+" is : " << output.second << endl;
   return output;
 }
 

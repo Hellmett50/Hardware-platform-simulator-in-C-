@@ -28,16 +28,12 @@ int Platform::load(string platformName){
   while(getline(stream, fileComponent)){
       deleteSpace(fileComponent);
       ComponentType = fileComponent;
-      std::cout << "ComponentType: " << ComponentType << '\n';
       size_t found = ComponentType.rfind("/");
       if (found!=string::npos)
         ComponentType.erase(0,found+1);
-      std::cout << "ComponentType: " << ComponentType << '\n';
       found = ComponentType.find_first_of("123456789.");
       if (found!=string::npos)
         ComponentType.erase(found,ComponentType.back());
-
-      std::cout << "ComponentType: " << ComponentType << '\n';
 
       if(ComponentType=="bus"){
         try
@@ -72,7 +68,7 @@ int Platform::load(string platformName){
         {
           mem_temp = new Memory(fileComponent);
           hardWareTemp.push_back(mem_temp);
-          hardWareTemp[0]->infos();
+          hardWareTemp[component_nb]->infos();
         }
         catch (const string msg)
         {
