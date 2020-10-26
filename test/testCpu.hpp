@@ -6,7 +6,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "../include/cpu.hpp"
-
+#include "../include/notify.hpp"
 
 //-----------------------------------------------------------------------------
 

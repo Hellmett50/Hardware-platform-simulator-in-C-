@@ -11,6 +11,7 @@
 #include <fstream>
 #include <cstddef>
 #include <exception>
+#include "notify.hpp"
 
 enum Attributes{TYPE=0, LABEL=1};
 

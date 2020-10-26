@@ -6,6 +6,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "../include/platform.hpp"
+#include "../include/notify.hpp"
 
 class TestPlatform : public CppUnit::TestFixture
 {
