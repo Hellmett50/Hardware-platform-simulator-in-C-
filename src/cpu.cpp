@@ -4,9 +4,13 @@ using namespace std;
 
 
 /*============Cpu============*/
-Cpu::Cpu(string path){
+Cpu::Cpu(/*string path*/) : _prog(){
 
-  cout << "\n\n==================\n"
+}//End of Cpu::Cpu()
+
+int Cpu::load(string path){
+
+	cout << "\n\n==================\n"
        << "Loading component CPU...\n" << endl;
 
   int ct_attribute=0;
@@ -15,8 +19,10 @@ Cpu::Cpu(string path){
 
   stream.open(path);
 
-  if(!stream.is_open())
+  if(!stream.is_open()){
     throw "Failed to open file : "+path;
+		return FILE_OPEN_FAILURE;
+	}
 
   _sourceLabel="";
 
@@ -55,10 +61,14 @@ Cpu::Cpu(string path){
   cout << "==================" << "\n"<< endl;
 
   stream.close();
-  if(stream.is_open())
+  if(stream.is_open()){
     throw "Failed to close file : "+path;
+		return FILE_CLOSE_FAILURE;
+	}
+	
+	return LOADING_SUCCESS;
 
-}//End of Cpu::Cpu()
+}//End of Cpu::load()
 
 void Cpu::infos() const{
 

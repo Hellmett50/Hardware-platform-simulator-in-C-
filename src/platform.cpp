@@ -22,7 +22,7 @@ int Platform::load(string platformName){
 
   if(!stream.is_open()){
     cout << "Failed to open file : " << platformName << endl;
-    return EXIT_FAILURE;
+    return FILE_OPEN_FAILURE;
   }
 
   while(getline(stream, fileComponent)){
@@ -45,21 +45,22 @@ int Platform::load(string platformName){
         catch(const string msg)
         {
           cout << msg << endl;
-          return EXIT_FAILURE;
+          return LOADING_FAILURE;
         }
       }
 
       else if(ComponentType=="cpu"){
         try
         {
-          cpu_temp = new Cpu(fileComponent);
+          cpu_temp = new Cpu(/*fileComponent*/);
+          cpu_temp->load(fileComponent);
           hardWareTemp.push_back(cpu_temp);
           hardWareTemp[component_nb]->infos();
-        }
+       }
         catch (const string msg)
         {
           cout << msg << endl;
-          return EXIT_FAILURE;
+          return LOADING_FAILURE;
         }
       }
 
@@ -73,7 +74,7 @@ int Platform::load(string platformName){
         catch (const string msg)
         {
           cout << msg << endl;
-          return EXIT_FAILURE;
+          return LOADING_FAILURE;
         }
       }
 
@@ -86,12 +87,12 @@ int Platform::load(string platformName){
         catch (const string msg)
         {
           cout << msg << endl;
-          return EXIT_FAILURE;
+          return LOADING_FAILURE;
         }
       }
       else{
         cout << "Failled to load the Platform..." << endl;
-        return EXIT_FAILURE;
+        return LOADING_FAILURE;
       }
       component_nb++;
       std::cout << "ComponentType2: " << ComponentType << '\n' << '\n';
@@ -101,10 +102,10 @@ int Platform::load(string platformName){
   stream.close();
   if(stream.is_open()){
     cout << "Failed to close file : " << platformName << endl;
-    return EXIT_FAILURE;
+    return FILE_CLOSE_FAILURE;
   }
 
-  return EXIT_SUCCESS;
+  return LOADING_SUCCESS;
 
 }//End of Platform::load()
 

@@ -1,4 +1,5 @@
 #include "../include/hardware.hpp"
+#include "../include/notify.hpp"
 
 using namespace std;
 

@@ -58,10 +58,12 @@ class Cpu : public HardWare{
     std::string tellLabelSource();
 
   public:
-    Cpu(std::string path);
+    Cpu(/*std::string path*/);
+    int load(std::string path);
     void infos() const;
     void simulate();
     std::pair<bool, double> read();
+    int add(){return 4;}
 
 };//End of class Cpu
 
