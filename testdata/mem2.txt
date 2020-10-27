@@ -4,3 +4,4 @@ SIZE:   128
   ACCESS: 4
 SOURCE:   Auxiliary bus
 INIT: 69.5 42 420 1
+PRIORITY: 2

@@ -11,6 +11,10 @@ string HardWare::tellLabelSource() const{
   return _sourceLabel;
 }
 
+unsigned int HardWare::tellPriority() const{
+  return _priority;
+}
+
 void HardWare::bind(HardWare* source) {
   _source = source;
 }//End of HardWare::bind()

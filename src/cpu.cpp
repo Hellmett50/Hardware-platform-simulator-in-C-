@@ -26,7 +26,6 @@ Cpu::Cpu(string path){
     size_t found = attribute.rfind(": ");
     if (found!=string::npos)
       attribute.erase(0,found+2);
-
     switch (ct_attribute) {
       case TYPE:
       attribute.erase(remove(attribute.begin(), attribute.end(), ' '), attribute.end());
@@ -45,6 +44,9 @@ Cpu::Cpu(string path){
       case PROGRAM:
       attribute.erase(remove(attribute.begin(), attribute.end(), ' '), attribute.end());
         _prog.loadProgram(attribute);
+      break;
+      case PRIORITY:
+        _priority=stoi(attribute);
       break;
     }
     ct_attribute++;
@@ -65,7 +67,8 @@ void Cpu::infos() const{
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
        << "CORES: " << _cores << '\n'
-       << "FREQUENCY: " << _freq << endl;
+       << "FREQUENCY: " << _freq << '\n'
+       << "PRIORITY: " << _priority << '\n' << endl;
        _prog.printPath();
 
 }//End of Cpu::info()

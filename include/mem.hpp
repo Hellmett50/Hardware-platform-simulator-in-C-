@@ -27,8 +27,8 @@ class Memory : public HardWare{
     unsigned int _accesCt;
 
   public:
-    //virtual std::string tellLabelSource() const;
     Memory(std::string path);
+    ~Memory();
     void infos() const;
     void bind();
     void simulate();

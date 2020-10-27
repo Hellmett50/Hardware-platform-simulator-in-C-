@@ -4,7 +4,7 @@ using namespace std;
 
 Bus::Bus(string path){
 
-  cout << path << endl;
+  //cout << path << endl;
   cout << "\n\n==================\n"
        << "Loading component BUS...\n" << endl;
 
@@ -35,6 +35,9 @@ Bus::Bus(string path){
       _width=stoi(attribute);
     if (attributeName == "SOURCE")
       _sourceLabel=attribute;
+    if (attributeName == "PRIORITY") {
+      _priority=stoul(attribute, nullptr);
+    }
   }
 
 
@@ -59,7 +62,9 @@ void Bus::infos() const{
   cout << "TYPE: " << _type << '\n'
        << "LABEL: " << _label << '\n'
        << "WIDTH: " << _width << '\n'
-       << "SOURCE: " << _sourceLabel << '\n' << endl;
+       << "SOURCE: " << _sourceLabel << '\n'
+       << "PRIORITY: " << _priority << '\n' << endl;
+
 
 }
 

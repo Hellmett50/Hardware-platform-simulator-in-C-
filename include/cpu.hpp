@@ -5,7 +5,7 @@
 #include <string>
 #include "hardware.hpp"
 
-enum Cpu_Attributes{CORES=2, FREQUENCY= 3, PROGRAM=4};
+enum Cpu_Attributes{CORES=2, FREQUENCY= 3, PROGRAM=4, PRIORITY=5};
 
 class Instruction{
 

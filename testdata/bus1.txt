@@ -2,3 +2,4 @@ TYPE: BUS
 LABEL: My bus 1
 WIDTH: 3
 SOURCE: Main processing unit
+PRIORITY: 1

@@ -94,7 +94,6 @@ int Platform::load(string platformName){
         return EXIT_FAILURE;
       }
       component_nb++;
-      std::cout << "ComponentType2: " << ComponentType << '\n' << '\n';
   }
 
   cout << "Platform loaded !" << endl;
@@ -119,6 +118,7 @@ void Platform::bind(){
       if (hardWareTemp[component_id]->tellLabelSource() == hardWareTemp[source_id]->tellLabel())
       {
         hardWareTemp[component_id]->bind(hardWareTemp[source_id]);
+
         break;
       }
     }
@@ -130,17 +130,23 @@ void Platform::bind(){
 }//End of Platform::bind()
 
 int Platform::simulate( int imax ){
+  unsigned int prio = 0;
 
   if( imax < 0 ){
     cout << "ERROR : wrong cycle number" << endl;
     return EXIT_FAILURE;
   }
   cout << "////////////////////INITIATING PLATFORM SIMULATION/////////////////////////////" << endl;
-
   for (int i = 0; i < imax; i++) {
     for (int j = 0; j < component_nb-1; j++) {
-      hardWareTemp[j]->simulate();
+      for (int k = 0; k < component_nb-1; k++) {
+        if (hardWareTemp[k]->tellPriority() == prio) {
+          hardWareTemp[k]->simulate();
+        }
+      }
+      prio++;
     }
+    prio = 0;
     display->simulate();
   }
   return EXIT_SUCCESS;

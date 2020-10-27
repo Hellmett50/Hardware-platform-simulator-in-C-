@@ -27,7 +27,6 @@ Memory::Memory(string path) {
     }
     deleteSpace(attributeName);
     deleteSpace(attribute);
-
     if (attributeName == "TYPE")
       _type=attribute;
     if (attributeName == "LABEL")
@@ -52,6 +51,9 @@ Memory::Memory(string path) {
       init.first = false;
       _circbuffer->pushData(init);
     }
+    if (attributeName == "PRIORITY"){
+      _priority=stoul(attribute, nullptr);
+    }
   }
 
   infos();
@@ -61,10 +63,10 @@ Memory::Memory(string path) {
   stream.close();
 
 }
-/*
+
 Memory::~Memory(){
-  delete _circbuffer;
-}*/
+  delete[] _circbuffer;
+}
 
 void Memory::infos() const{
 
@@ -72,8 +74,8 @@ void Memory::infos() const{
        << "LABEL: " << _label << '\n'
        << "SIZE: " << _circbuffer->_size << '\n'
        << "ACCESS: " << _access << '\n'
-       << "SOURCE: " << _sourceLabel << '\n' << endl;
-
+       << "SOURCE: " << _sourceLabel << '\n'
+       << "PRIORITY: " << _priority << '\n' << endl;
 }
 /*
 string Memory::tellLabelSource() const{

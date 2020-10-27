@@ -18,6 +18,7 @@ class HardWare{
   protected:
     std::string _label;
     std::string _type;
+    unsigned int _priority;
 
   public:
     HardWare* _source;
@@ -28,8 +29,8 @@ class HardWare{
     virtual std::pair<bool, double> read()=0;
     std::string tellLabel() const;
     virtual std::string tellLabelSource() const;
+    unsigned int tellPriority() const;
     void bind(HardWare* source);
-
 };
 
 void deleteSpace(std::string& str);
