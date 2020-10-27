@@ -57,6 +57,14 @@
     RESET_COLORS(stderr);\
 } while(0)
 
+#define INFO_MSG(type, msg) do {\
+    fprintf( stderr, "%c[%d;%dm", 0x1B, STYLE_INFOS, GREEN );\
+    fprintf( stderr, "[INFO::<%s>] ", type );\
+    SET_COLORS(FOR_INFOS, stderr);\
+    fprintf( stderr, "%s%s", msg, ".\n");\
+    RESET_COLORS(stderr);\
+} while(0)
+
 #define ERROR_MSG(type, msg) do {\
     fprintf( stderr, "%c[%d;%dm", 0x1B, BOLD, COLOR_ERROR );\
     fprintf( stderr, "[ERROR::<%s>] ", type );\
